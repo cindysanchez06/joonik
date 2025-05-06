@@ -23,12 +23,16 @@ class LocationController extends BaseController
      */
     public function index()
     {
-        $locations = $this->locationRepository->getAll();
+        try {
+            $locations = $this->locationRepository->getAll();
 
         if (empty($locations)) {
             return response()->json(['error' => 'No hay sedes disponibles'], 404);
         }
 
         return response()->json($locations);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al obtener las sedes'], 500);
+        }
     }
 }
