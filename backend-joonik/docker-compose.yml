@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  lumen:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+    command: /bin/bash -c "composer install && chmod -R 777 /var/www/html/storage && chmod -R 755 /var/www/html/bootstrap && apache2-foreground" 
