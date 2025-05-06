@@ -14,13 +14,13 @@ const mockAxios = {
     interceptors: {
       request: {
         use: jest.fn(),
-        eject: jest.fn()
+        eject: jest.fn(),
       },
       response: {
         use: jest.fn(),
-        eject: jest.fn()
-      }
-    }
+        eject: jest.fn(),
+      },
+    },
   })),
   isAxiosError: jest.fn((error) => error?.isAxiosError || false),
   AxiosError: class AxiosError extends Error {
@@ -29,7 +29,7 @@ const mockAxios = {
       super(message);
       this.name = 'AxiosError';
     }
-  }
+  },
 };
 
 jest.mock('axios', () => mockAxios);

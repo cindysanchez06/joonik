@@ -6,14 +6,14 @@ import { getLocations } from './services/api';
 
 // Mock del módulo api
 jest.mock('./services/api', () => ({
-  getLocations: jest.fn()
+  getLocations: jest.fn(),
 }));
 
 test('renders Sedes Colombia heading', async () => {
   (getLocations as any).mockResolvedValue([]);
-  
+
   render(<App />);
-  
+
   await waitFor(() => {
     expect(screen.getByRole('heading', { name: /sedes colombia/i })).toBeInTheDocument();
   });
