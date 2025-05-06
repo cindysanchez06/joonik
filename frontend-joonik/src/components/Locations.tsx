@@ -43,7 +43,7 @@ const Locations: React.FC = () => {
       month: 'long',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     }).format(date);
   };
 
@@ -57,15 +57,15 @@ const Locations: React.FC = () => {
 
   if (error) {
     return (
-      <Typography 
-        variant="h6" 
-        color="error" 
-        align="center" 
-        sx={{ 
-          bgcolor: 'rgba(220, 53, 69, 0.1)', 
-          p: 2, 
+      <Typography
+        variant="h6"
+        color="error"
+        align="center"
+        sx={{
+          bgcolor: 'rgba(220, 53, 69, 0.1)',
+          p: 2,
           borderRadius: 1,
-          m: 2
+          m: 2,
         }}
       >
         {error}
@@ -75,14 +75,14 @@ const Locations: React.FC = () => {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4, bgcolor: '#25252D' }}>
-      <Typography 
-        variant="h4" 
-        component="h2" 
-        align="center" 
-        sx={{ 
-          color: '#0097C2', 
+      <Typography
+        variant="h4"
+        component="h2"
+        align="center"
+        sx={{
+          color: '#0097C2',
           mb: 4,
-          fontWeight: 500
+          fontWeight: 500,
         }}
       >
         Sedes Colombia
@@ -90,8 +90,8 @@ const Locations: React.FC = () => {
       <Grid container spacing={3}>
         {locations.map((location) => (
           <Grid item xs={12} sm={6} md={4} key={location.id}>
-            <Card 
-              sx={{ 
+            <Card
+              sx={{
                 bgcolor: '#30303B',
                 height: '100%',
                 display: 'flex',
@@ -99,8 +99,8 @@ const Locations: React.FC = () => {
                 transition: 'transform 0.2s',
                 '&:hover': {
                   transform: 'translateY(-3px)',
-                  boxShadow: 3
-                }
+                  boxShadow: 3,
+                },
               }}
             >
               <CardMedia
@@ -112,24 +112,18 @@ const Locations: React.FC = () => {
                 sx={{ objectFit: 'cover' }}
               />
               <CardContent sx={{ flexGrow: 1 }}>
-                <Typography 
-                  gutterBottom 
-                  variant="h6" 
+                <Typography
+                  gutterBottom
+                  variant="h6"
                   component="h3"
                   sx={{ color: '#ffffff', textAlign: 'center' }}
                 >
                   {location.name}
                 </Typography>
-                <Typography 
-                  variant="body2" 
-                  sx={{ color: '#ffffff', textAlign: 'center', mb: 1 }}
-                >
+                <Typography variant="body2" sx={{ color: '#ffffff', textAlign: 'center', mb: 1 }}>
                   Código: {location.id}
                 </Typography>
-                <Typography 
-                  variant="body2" 
-                  sx={{ color: '#ffffff', textAlign: 'center' }}
-                >
+                <Typography variant="body2" sx={{ color: '#ffffff', textAlign: 'center' }}>
                   Creado: {formatDate(location.createdAt)}
                 </Typography>
               </CardContent>
@@ -141,4 +135,4 @@ const Locations: React.FC = () => {
   );
 };
 
-export default Locations; 
+export default Locations;

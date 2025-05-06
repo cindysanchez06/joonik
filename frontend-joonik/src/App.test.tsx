@@ -1,9 +1,20 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import App from './App';
+import { getLocations } from './services/api';
 
-test('renders learn react link', () => {
+// Mock del módulo api
+jest.mock('./services/api', () => ({
+  getLocations: jest.fn()
+}));
+
+test('renders Sedes Colombia heading', async () => {
+  (getLocations as any).mockResolvedValue([]);
+  
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  
+  await waitFor(() => {
+    expect(screen.getByRole('heading', { name: /sedes colombia/i })).toBeInTheDocument();
+  });
 });
