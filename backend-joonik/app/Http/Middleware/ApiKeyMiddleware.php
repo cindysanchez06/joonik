@@ -7,6 +7,7 @@ use Closure;
 class ApiKeyMiddleware
 {
     /**
+     * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -14,11 +15,33 @@ class ApiKeyMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $apiKey = $request->header('X-API-Key');
+       
+        if ($request->getMethod() === 'OPTIONS') {
+            return $next($request);
+        }
 
-        if (!$apiKey || $apiKey !== env('API_KEY')) {
+       
+        $authHeader = $request->header('Authorization');
+        $token = null;
+
+        if ($authHeader && preg_match('/Bearer\s+(.*)$/i', $authHeader, $matches)) {
+            $token = $matches[1];
+        }
+
+        
+        if (!$token) {
+            $token = $request->header('X-API-Key');
+        }
+
+        if (!$token) {
             return response()->json([
-                'error' => 'Debe proporcionar una API Key válida'
+                'error' => 'Se requiere un token de autenticación válido'
+            ], 401);
+        }
+
+        if ($token !== env('API_KEY')) {
+            return response()->json([
+                'error' => 'Token inválido'
             ], 401);
         }
 

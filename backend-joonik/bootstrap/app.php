@@ -23,9 +23,24 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
 
-// $app->withEloquent();
+$app->middleware([
+    function ($request, $next) {
+        if ($request->getMethod() === 'OPTIONS') {
+            $response = new \Illuminate\Http\Response('', 200);
+        } else {
+            $response = $next($request);
+        }
+        
+        $response->headers->set('Access-Control-Allow-Origin', 'http://localhost:3000');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, X-API-Key');
+        $response->headers->set('Access-Control-Allow-Credentials', 'true');
+        $response->headers->set('Access-Control-Max-Age', '86400'); 
+        
+        return $response;
+    }
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +75,7 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('cors');
 
 /*
 |--------------------------------------------------------------------------
